@@ -26,7 +26,6 @@ sentences_train_set = train_set["comment_text"]
 
 tokenizer = Tokenizer(num_words=NUMBER_OF_UNIQUE_WORDS_CONSIDERED)
 tokenizer.fit_on_texts(list(sentences_train_set))
-
 tokenized_train_set = tokenizer.texts_to_sequences(sentences_train_set)
 
 columns = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
@@ -42,10 +41,7 @@ x = Dense(50, activation="relu")(x)
 x = Dropout(DROPOUT_FACTOR)(x)
 x = Dense(6, activation="sigmoid")(x)
 model = Model(inputs=inputs, outputs=x)
-model.compile(optimizer='adam',
-	loss='binary_crossentropy',
-	metrics=['accuracy'])
-
+model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 model.fit(X_t, y, batch_size=BATCH_SIZE, epochs=EPOCHS, verbose=1, validation_split=0.1)
 model.summary()
 model.save('trained_nn')
